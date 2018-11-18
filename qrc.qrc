@@ -1,0 +1,11 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+<file alias="qml/list_view.go">list_view.go</file>
+<file alias="qml/table_view.go">table_view.go</file>
+<file alias="qml/tree_view.go">tree_view.go</file>
+<file alias="qml/text_edit.go">text_edit.go</file>
+<file alias="qml/xkcd.go">xkcd.go</file>
+<file alias="qml/source.go">main.go</file>
+<file alias="dummy.png">js/dummy.png</file>
+</qresource>
+</RCC>
