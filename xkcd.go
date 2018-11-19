@@ -1,3 +1,5 @@
+//source: https://github.com/therecipe/qt/tree/master/internal/examples/widgets/xkcd
+
 package main
 
 import (

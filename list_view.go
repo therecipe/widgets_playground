@@ -1,4 +1,4 @@
-//source: https://github.com/therecipe/examples/blob/master/advanced/widgets/listview/main.go
+//source: https://github.com/therecipe/examples/blob/master/advanced/widgets/listview
 
 package main
 

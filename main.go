@@ -42,6 +42,22 @@ func main() {
 	tabWidget := widgets.NewQTabWidget(nil)
 	lVBox.AddWidget(tabWidget, 0, 0)
 
+	switch runtime.GOARCH {
+	case "js", "wasm":
+		widgets.QApplication_Desktop().ConnectResized(func(screen int) {
+			if widgets.QApplication_Desktop().Screen(screen).Width() < 1024 ||
+				widgets.QApplication_Desktop().Screen(screen).Height() < 768 {
+
+				tabWidget.SetStyleSheet("QTabBar::scroller { width: 105px }")
+				tabWidget.SetTabPosition(widgets.QTabWidget__West)
+			} else {
+				tabWidget.SetStyleSheet("")
+				tabWidget.SetTabPosition(widgets.QTabWidget__North)
+			}
+		})
+		widgets.QApplication_Desktop().Resized(0)
+	}
+
 	//create textedits
 	var textEdits []*widgets.QTextEdit
 	var textEditQSS *widgets.QPlainTextEdit
@@ -285,14 +301,14 @@ func newInfoWidget() *widgets.QWidget {
 	repoLayout := widgets.NewQVBoxLayout2(infoWidget)
 
 	//label
-	label := widgets.NewQLabel2(`This playground is a Proof of Concept showcase to illustrate that it's possible to create SPAs entirely in Go and/or JavaScript by utilizing Qt and <a href="https://github.com/therecipe/qt">therecipe/qt</a><br>
+	label := widgets.NewQLabel2(`This playground is a Proof of Concept showcase to illustrate that it's possible to create SPAs entirely in Go and/or JavaScript by utilizing <a href="https://www.qt.io">Qt</a> and <a href="https://github.com/therecipe/qt">therecipe/qt</a><br>
 <br>
 This showcase isn't meant to show an aesthetically pleasing application but rather an functional application using the Qt Widgets module.<br>
 There will be another playground to showcase more modern looking QML applications in the future.<br>
 It will show amongst other things examples with Material and Metro design as well as examples with heavy 2 and 3D animations.<br>
 <br>
 However, this showcase is still experimental and might bug out from time to time, there are also at least two known issues making the WebAssembly binary (or generated JavaScript code) unnecessary large.<br>
-It should be possible to reduce the size at least about 20% or more in the future and improve the general performance.<br>
+It should be possible to reduce the size at least about 20% or more in the future and also improve the general performance.<br>
 <br>
 This playground can also be compiled for all major operating systems (desktop and mobile) and also for the full WebAssembly target without any changes.<br>
 The JavaScript examples won't work though, but if there is enough interest then there is probably a way to make the JavaScript api work on the desktop and mobile targets as well.<br>
