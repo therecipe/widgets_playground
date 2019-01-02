@@ -14,9 +14,9 @@ If you are new and want to build this yourself, then just take the following ste
 
 -	Install Git: https://git-scm.com/downloads
 
--	Install tooling: `go install -v github.com/therecipe/qt/cmd/...`
+-	Install tooling: `go get -u -v github.com/therecipe/qt/cmd/...`
 
--	Pull the repo: `go get -v -d github.com/therecipe/widgets_playground`
+-	Pull the repo: `go get -d -v github.com/therecipe/widgets_playground`
 
 -	Install Docker: https://store.docker.com/search?offering=community&type=edition
 

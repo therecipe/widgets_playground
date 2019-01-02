@@ -24,7 +24,7 @@ func main() {
 	qApp := widgets.NewQApplication(len(os.Args), os.Args)
 	switch runtime.GOARCH {
 	case "js", "wasm":
-		if qt.Global.Call("eval", "window.location.search.search('windows')").Int() != -1 {
+		if qt.Global.Call("eval", "window.location.hash.search('windows')").Int() != -1 {
 			widgets.QApplication_SetStyle2("windows")
 		}
 	}
