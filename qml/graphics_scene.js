@@ -37,7 +37,7 @@ button.ConnectClicked(function() { proxy.SetX(proxy.X() + 5); });
 */
 
 /*
-var pixmap = gui.NewQPixmap5(":/dummy.png")
+var pixmap = gui.NewQPixmap3(":/dummy.png")
 pixmap = pixmap.Scaled2(pixmap.Width()/2, pixmap.Height()/2, core.Qt__KeepAspectRatio, core.Qt__SmoothTransformation);
 
 var pixmapItem = scene.AddPixmap(pixmap);

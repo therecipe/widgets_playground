@@ -42,9 +42,9 @@ func (m *CustomTableModel) headerData(section int, orientation core.Qt__Orientat
 
 	switch section {
 	case 0:
-		return core.NewQVariant14("FirstName")
+		return core.NewQVariant1("FirstName")
 	case 1:
-		return core.NewQVariant14("LastName")
+		return core.NewQVariant1("LastName")
 	}
 	return core.NewQVariant()
 }
@@ -65,9 +65,9 @@ func (m *CustomTableModel) data(index *core.QModelIndex, role int) *core.QVarian
 	item := m.modelData[index.Row()]
 	switch m.HeaderData(index.Column(), core.Qt__Horizontal, role).ToString() {
 	case "FirstName":
-		return core.NewQVariant14(item.firstName)
+		return core.NewQVariant1(item.firstName)
 	case "LastName":
-		return core.NewQVariant14(item.lastName)
+		return core.NewQVariant1(item.lastName)
 	}
 	return core.NewQVariant()
 }

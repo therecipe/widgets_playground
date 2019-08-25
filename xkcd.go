@@ -76,7 +76,7 @@ func new_xkcdWidget() *widgets.QWidget {
 			url := fmt.Sprintf("https://xkcd.com/%v/info.0.json", rand.Intn(614))
 			switch runtime.GOARCH {
 			case "js", "wasm":
-				url = "https://cors.io/?" + url
+				url = "https://yacdn.org/proxy/" + url
 			}
 
 			resp, err := http.Get(url)
