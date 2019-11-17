@@ -2,7 +2,7 @@
 
 //import github.com/therecipe/qt/widgets
 
-"use strict";
+(function(){
 
 // create a regular widget
 // give it a QVBoxLayout
@@ -29,4 +29,5 @@ widget.Layout().AddWidget(button);
 
 //postamble
 
-widget.Pointer();
+return widget.Pointer();
+})();

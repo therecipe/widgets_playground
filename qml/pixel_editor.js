@@ -4,7 +4,7 @@
 //import github.com/therecipe/qt/gui
 //import github.com/therecipe/qt/widgets
 
-"use strict";
+(function(){
 
 //preamble
 
@@ -30,11 +30,13 @@ for (x = 0; x < img.Width(); x++) {
 
 var item = widgets.NewQGraphicsPixmapItem2(gui.QPixmap_FromImage(img, 0));
 
-var color = gui.NewQColor3(255, 255, 255, 255);
+var color = gui.NewQColor3(255, 255, 255, 255); //TODO: the QColor object is garbage collected 
 var drawPixel = function(x, y) {
+	x = Math.trunc(x);
+	y = Math.trunc(y);
 	var pixmap = item.Pixmap();
-	if (x >= 1 && x <= pixmap.Width()-1 &&
-		y >= 1 && y <= pixmap.Height()-1) {
+	if (x >= 1 && x < pixmap.Width()-1 &&
+		y >= 1 && y < pixmap.Height()-1) {
 
 		var img = item.Pixmap().ToImage();
 		img.SetPixelColor2(x, y, color);
@@ -54,4 +56,5 @@ scene.AddItem(item);
 
 //postamble
 
-view.Pointer();
+return view.Pointer();
+})();

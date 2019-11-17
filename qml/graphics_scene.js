@@ -4,7 +4,7 @@
 //import github.com/therecipe/qt/gui
 //import github.com/therecipe/qt/widgets
 
-"use strict";
+(function(){
 
 //preamble
 
@@ -54,4 +54,5 @@ setInterval(function() {
 
 //postamble
 
-view.Pointer();
+return view.Pointer();
+})();

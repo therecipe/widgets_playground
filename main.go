@@ -11,6 +11,7 @@ import (
 	"github.com/therecipe/qt"
 	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
+	"github.com/therecipe/qt/qml"
 	"github.com/therecipe/qt/widgets"
 )
 
@@ -110,6 +111,8 @@ func main() {
 		}
 	})
 
+	var engine *qml.QJSEngine
+
 	//run button
 	runButton = widgets.NewQPushButton2("run", nil)
 	runButton.SetIcon(runButton.Style().StandardIcon(widgets.QStyle__SP_MediaPlay, nil, nil))
@@ -129,10 +132,20 @@ func main() {
 		switch i := tabWidget.CurrentIndex(); i {
 		case 0, 1, 2, 3:
 			switch runtime.GOARCH {
-			case "js": //TODO: js api support for wasm
+			case "js": //TODO: browser js api support for wasm
 				cWidget = widgets.NewQWidgetFromPointer(unsafe.Pointer(js.Global.Call("eval", textEdits[tabWidget.CurrentIndex()].ToPlainText()).Unsafe()))
 			default:
-				cWidget = widgets.NewQWidget(nil, 0) //TODO: js api support for anything else
+				if engine == nil {
+					engine = qml.NewQJSEngine()
+				}
+				if engine.GlobalObject().Property("setInterval").IsUndefined() {
+					engine.NewGoType("setInterval", func(f func(), msec int) {
+						t := core.NewQTimer(nil)
+						t.ConnectTimeout(f)
+						t.Start(msec)
+					})
+				}
+				cWidget = widgets.NewQWidgetFromPointer(unsafe.Pointer(uintptr(engine.Evaluate(textEdits[tabWidget.CurrentIndex()].ToPlainText(), "", 0).ToVariant().ToULongLong(nil))))
 			}
 			if i == 0 {
 				cWidget.SetStyleSheet(textEditQSS.ToPlainText())

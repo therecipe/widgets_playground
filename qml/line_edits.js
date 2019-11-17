@@ -1,9 +1,10 @@
 //port of: https://github.com/therecipe/qt/blob/master/internal/examples/widgets/line_edits/line_edits.go
 
 //import github.com/therecipe/qt/core
+//import github.com/therecipe/qt/gui
 //import github.com/therecipe/qt/widgets
 
-"use strict";
+(function(){
 
 var echoGroup = widgets.NewQGroupBox2("Echo"),
 	echoLabel = widgets.NewQLabel2("Mode:"),
@@ -122,11 +123,11 @@ var validatorChanged = function(validatorLineEdit, index) {
 			break;
 
 		case 1:
-			validatorLineEdit.SetValidator(widgets.NewQIntValidator(validatorLineEdit));
+			validatorLineEdit.SetValidator(gui.NewQIntValidator(validatorLineEdit));
 			break;
 
 		case 2:
-			validatorLineEdit.SetValidator(widgets.NewQDoubleValidator2(-999.0, 999.0, 2, validatorLineEdit));
+			validatorLineEdit.SetValidator(gui.NewQDoubleValidator2(-999.0, 999.0, 2, validatorLineEdit));
 			break;
 	}
 
@@ -187,4 +188,5 @@ var accessChanged = function(accessLineEdit, index) {
 
 var centralWidget = widgets.NewQWidget();
 centralWidget.SetLayout(layout);
-centralWidget.Pointer();
+return centralWidget.Pointer();
+})();
