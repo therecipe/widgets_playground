@@ -64,7 +64,7 @@ func main() {
 	var textEditQSS *widgets.QPlainTextEdit
 
 	for i := 0; i <= 9; i++ {
-		te := newTextEdit(fileForIndex(i))
+		te := newTextEdit(window)
 		te.SetReadOnly(i >= 4)
 		textEdits = append(textEdits, te)
 
@@ -100,7 +100,7 @@ func main() {
 	resetButton.ConnectClicked(func(bool) {
 		file := core.NewQFile2(":/qml/" + fileForIndex(tabWidget.CurrentIndex()))
 		if file.Open(core.QIODevice__ReadOnly) {
-			defer file.Close()
+			defer func() { file.Close(); file.DestroyQFile() }()
 			textEdits[tabWidget.CurrentIndex()].Document().SetPlainText(file.ReadAll().ConstData())
 		}
 		if tabWidget.CurrentIndex() == 0 {
@@ -123,7 +123,7 @@ func main() {
 		for rVBox.Count() > 0 {
 			ci := rVBox.TakeAt(0)
 			ci.Widget().Hide()
-			ci.Widget().DeleteLater()
+			ci.Widget().DestroyQWidget()
 			ci.DestroyQLayoutItem()
 		}
 
@@ -135,14 +135,19 @@ func main() {
 			case "js": //TODO: browser js api support for wasm
 				cWidget = widgets.NewQWidgetFromPointer(unsafe.Pointer(js.Global.Call("eval", textEdits[tabWidget.CurrentIndex()].ToPlainText()).Unsafe()))
 			default:
-				if engine == nil {
-					engine = qml.NewQJSEngine()
+				if engine != nil {
+					engine.DestroyQJSEngine()
 				}
+				engine = qml.NewQJSEngine()
+
 				if engine.GlobalObject().Property("setInterval").IsUndefined() {
 					engine.NewGoType("setInterval", func(f func(), msec int) {
-						t := core.NewQTimer(nil)
+						t := core.NewQTimer(engine)
 						t.ConnectTimeout(f)
 						t.Start(msec)
+					})
+					engine.NewGoType("console.log", func(s string) {
+						println(s)
 					})
 				}
 				cWidget = widgets.NewQWidgetFromPointer(unsafe.Pointer(uintptr(engine.Evaluate(textEdits[tabWidget.CurrentIndex()].ToPlainText(), "", 0).ToVariant().ToULongLong(nil))))
@@ -204,7 +209,7 @@ func main() {
 		if i <= 9 && textEdits[i].Document().IsEmpty() {
 			file := core.NewQFile2(":/qml/" + fileForIndex(i))
 			if file.Open(core.QIODevice__ReadOnly) {
-				defer file.Close()
+				defer func() { file.Close(); file.DestroyQFile() }()
 				liveToogleWasChecked := liveToggle.IsChecked()
 				liveToggle.SetChecked(false)
 				textEdits[i].Document().SetPlainText(file.ReadAll().ConstData())
@@ -262,9 +267,9 @@ func newDefaultFont() *gui.QFont {
 	return font
 }
 
-func newTextEdit(n string) *widgets.QTextEdit {
+func newTextEdit(p core.QObject_ITF) *widgets.QTextEdit {
 	//code syntax highlighter
-	doc := gui.NewQTextDocument(nil)
+	doc := gui.NewQTextDocument(p)
 	doc.SetDefaultFont(newDefaultFont())
 
 	//code text area

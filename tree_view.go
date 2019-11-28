@@ -28,6 +28,7 @@ func (i *TreeItem) initWith(data []string) *TreeItem {
 }
 
 func (i *TreeItem) appendChild(child *TreeItem) {
+	child.SetParent(i)
 	child._parentItem = i
 	i._childItems = append(i._childItems, child)
 }
@@ -87,7 +88,7 @@ type CustomTreeModel struct {
 }
 
 func (m *CustomTreeModel) init() {
-	m.rootItem = NewTreeItem(nil).initWith([]string{"FirstName", "LastName"})
+	m.rootItem = NewTreeItem(m).initWith([]string{"FirstName", "LastName"})
 	m.rootItem.appendChild(NewTreeItem(nil).initWith([]string{"john", "doe"}))
 
 	firstChild := NewTreeItem(nil).initWith([]string{"john", "bob"})
@@ -221,7 +222,7 @@ func newTreeView() *widgets.QWidget {
 	widget.SetLayout(widgets.NewQVBoxLayout())
 
 	treeview := widgets.NewQTreeView(nil)
-	model := NewCustomTreeModel(nil)
+	model := NewCustomTreeModel(widget)
 	treeview.SetModel(model)
 	widget.Layout().AddWidget(treeview)
 

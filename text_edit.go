@@ -209,6 +209,9 @@ func (t *TextEdit) setupEditActions() {
 		var md = gui.QGuiApplication_Clipboard().MimeData(gui.QClipboard__Clipboard)
 		if md.Pointer() != nil {
 			t.actionPaste.SetEnabled(md.HasText())
+			t.ConnectDestroyed(func(obj *core.QObject) {
+				gui.QGuiApplication_Clipboard().DisconnectDestroyed()
+			})
 		}
 	}
 }
@@ -411,10 +414,10 @@ func (t *TextEdit) load(f string) bool {
 		return false
 	}
 	var file = core.NewQFile2(f)
+	defer func() { file.Close(); file.DestroyQFile() }()
 	if !file.Open(core.QIODevice__ReadOnly) {
 		return false
 	}
-	defer file.Close()
 
 	var (
 		data  = file.ReadAll()

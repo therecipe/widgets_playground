@@ -75,7 +75,7 @@ func newListView() *widgets.QWidget {
 	widget.SetLayout(widgets.NewQVBoxLayout())
 
 	listview := widgets.NewQListView(nil)
-	model := NewCustomListModel(nil)
+	model := NewCustomListModel(widget)
 	listview.SetModel(model)
 	widget.Layout().AddWidget(listview)
 

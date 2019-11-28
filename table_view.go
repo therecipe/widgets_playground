@@ -124,7 +124,7 @@ func newTableView() *widgets.QWidget {
 	widget.SetLayout(widgets.NewQVBoxLayout())
 
 	tableview := widgets.NewQTableView(nil)
-	model := NewCustomTableModel(nil)
+	model := NewCustomTableModel(widget)
 	tableview.SetModel(model)
 	widget.Layout().AddWidget(tableview)
 
