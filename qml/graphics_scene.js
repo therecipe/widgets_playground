@@ -9,7 +9,7 @@
 //preamble
 
 var view = widgets.NewQGraphicsView();
-var scene = widgets.NewQGraphicsScene3(0, 0, 300, 300);
+var scene = widgets.NewQGraphicsScene3(0, 0, 300, 300, view);
 view.SetScene(scene);
 
 //canvas

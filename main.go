@@ -136,6 +136,7 @@ func main() {
 				cWidget = widgets.NewQWidgetFromPointer(unsafe.Pointer(js.Global.Call("eval", textEdits[tabWidget.CurrentIndex()].ToPlainText()).Unsafe()))
 			default:
 				if engine != nil {
+					engine.CollectGarbage()
 					engine.DestroyQJSEngine()
 				}
 				engine = qml.NewQJSEngine()

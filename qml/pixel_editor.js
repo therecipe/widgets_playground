@@ -9,7 +9,7 @@
 //preamble
 
 var view = widgets.NewQGraphicsView();
-var scene = widgets.NewQGraphicsScene();
+var scene = widgets.NewQGraphicsScene(view);
 view.SetScene(scene);
 
 view.ConnectResizeEvent(function(event) {
