@@ -15,6 +15,6 @@ cd $(go env GOPATH)/src/github.com/therecipe/qt/internal/docker/darwin && ./buil
 qtdeploy -docker build darwin_static && rm -rf rcc* moc* vendor && git clean -f && git reset --hard && docker rmi therecipe/qt:darwin_static
 cd $OPWD/deploy/darwin && zip -q -9 -r ../${NAME}_darwin_amd64.zip * && cd $OPWD && rm -rf $OPWD/deploy/darwin
 
-rm $OPWD/qml/*.qml && qtdeploy -docker build js && rm -rf rcc* moc* vendor && git clean -f && git reset --hard && docker rmi therecipe/qt:js
+qtdeploy -docker build js && rm -rf rcc* moc* vendor && git clean -f && git reset --hard && docker rmi therecipe/qt:js
 cd $OPWD/deploy/js && zip -q -9 -r ../${NAME}_js.zip * && cd $OPWD && rm -rf $OPWD/deploy/js 
 
