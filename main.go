@@ -330,7 +330,6 @@ However, this showcase is still experimental and might bug out from time to time
 It should be possible to reduce the size at least about 20% or more in the future and also improve the general performance.<br>
 <br>
 This playground can also be compiled for all major operating systems (desktop and mobile) and also for the full WebAssembly target without any changes.<br>
-The JavaScript examples won't work though, but if there is enough interest then there is probably a way to make the JavaScript api work on the desktop and mobile targets as well.<br>
 <br>
 The current version of this showcase did use gopherjs to transpile the Go code and expose the Qt api to JavaScript, later versions will use the Go WebAssembly target for both tasks.<br>
 The Qt code is always compiled to WebAssembly using emscripten for both the "js" and the "wasm" target.<br>
