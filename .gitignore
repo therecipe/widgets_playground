@@ -1,5 +1,6 @@
 .DS_Store
-*.qmlc
+deploy/*
+vendor/*
 rcc*
 moc*
-deploy
+*.qmlc

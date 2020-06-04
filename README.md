@@ -1,8 +1,23 @@
-[DEMO LINK](https://therecipe.github.io/widgets_playground)
+[WEB DEMO](https://therecipe.github.io/widgets_playground)
+
+---
+
+Introduction
+------------
 
 This is a showcase example for the "js" and "wasm" targets and also the new JavaScript API of [therecipe/qt](https://github.com/therecipe/qt)
 
-General installation instructions for `therecipe/qt` can be found here: https://github.com/therecipe/qt/wiki/Installation
+Info
+----
+
+For general information about `therecipe/qt`, checkout: https://github.com/therecipe/qt
+
+The Qt API Docs can be found here: https://doc.qt.io/qt-5/classes.html
+
+If you have questions, join our Slack channel [#qt-binding](https://gophers.slack.com/messages/qt-binding/details) ([invite yourself here](https://invite.slack.golangbridge.org)\)
+
+Usage
+-----
 
 If you are already familiar with qtdeploy and the docker deployments then just pull the "js" or "wasm" image and deploy with `qtdeploy -docker build js` or "wasm" as usual.
 
